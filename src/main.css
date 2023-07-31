@@ -1,0 +1,656 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Roboto", "Archivo", sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  background-color: #030406;
+}
+
+.hand {
+  z-index: 9999;
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: all ease-out 300ms;
+  transition-property: background, transform;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border: 1px solid white;
+}
+
+.hand-hover {
+  background-color: none;
+  transform: scale(3);
+  -webkit-backdrop-filter: invert(1);
+          backdrop-filter: invert(1);
+  transform-origin: 100% 100%;
+}
+
+.navigations {
+  z-index: 99;
+}
+.navigations nav {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 1.8rem;
+  align-items: center;
+  z-index: 999;
+}
+.navigations nav .logo {
+  color: #030406;
+  font-size: 2.201em;
+}
+.navigations nav ul {
+  position: relative;
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+}
+.navigations nav ul li a {
+  position: relative;
+  font-size: 1em;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 1rem;
+}
+.navigations nav ul li a::after {
+  content: "";
+  position: absolute;
+  text-align: center;
+  bottom: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50px;
+  background-color: black;
+  transition: 0.4s;
+  transform: translate(0, 10px) scale(0);
+  transition: ease-in-out 200ms;
+}
+.navigations nav ul li a:hover::after {
+  background-color: white;
+  transform: translate(0, 0) scale(1);
+}
+.navigations nav ul li a:hover {
+  color: #fa7268;
+  animation: bouncing 500ms linear;
+}
+.navigations nav .menu-toggle {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  height: 30px;
+  justify-content: space-around;
+  border: 2px solid #fa7268;
+  border-radius: 40px;
+  padding: 10px;
+  animation: bouncing 500ms linear;
+  transform: scale(1.1);
+}
+.navigations nav .menu-toggle input {
+  position: absolute;
+  opacity: 0;
+  top: -5px;
+  left: -4px;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+.navigations nav .menu-toggle span {
+  z-index: -1;
+  display: block;
+  width: 30px;
+  height: 4px;
+  background-color: #fa7268;
+  transition: all ease-in-out 200ms;
+}
+.navigations nav .menu-toggle input:checked ~ span {
+  background-color: #030406;
+}
+.navigations nav .menu-toggle input:checked ~ span:nth-child(2) {
+  background-color: #030406;
+  transform: rotate(45deg) translateX(4px) translateY(4px);
+}
+.navigations nav .menu-toggle input:checked ~ span:nth-child(3) {
+  background-color: #030406;
+  transform: rotate(-45deg) translateX(8px) translateY(-6px);
+}
+.navigations nav .menu-toggle::after {
+  content: "";
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  z-index: -99;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: #30186d;
+  transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 300ms;
+  transform: translateY(-25px) scale(0);
+  transition: ease-in-out 200ms;
+}
+.navigations nav .menu-toggle:hover::after {
+  transform: translateY(0) scale(1);
+}
+.navigations nav .menu-toggle:hover {
+  border: 1px solid #030406;
+}
+.navigations nav .menu-toggle:hover span {
+  background-color: #030406;
+}
+.navigations nav .active-bg {
+  border: 2px solid #30186d;
+  background-color: #30186d;
+}
+.navigations .navigations-sticky {
+  background-color: rgba(5, 11, 5, 0);
+  position: sticky;
+  top: 0;
+  left: 0;
+  transition: all ease-in-out 300ms;
+}
+.navigations .navigations-sticky ul {
+  position: fixed;
+  right: 0;
+  flex-direction: column;
+  background: rgb(250, 114, 104);
+  background: linear-gradient(90deg, rgba(250, 114, 104, 0.247) 52%, rgba(125, 120, 255, 0.212) 100%);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  top: 25%;
+  width: 60%;
+  height: 50vh;
+  transform: translateX(100%);
+  transition: all cubic-bezier(0.17, 0.87, 0.53, 0.87) 600ms;
+  border-radius: 1800px 0 0 700px;
+}
+.navigations .navigations-sticky ul li a {
+  font-size: 3.201em;
+}
+.navigations .navigations-sticky ul li a::after {
+  top: calc(50% + 50px);
+  width: 20px;
+  height: 20px;
+}
+.navigations .navigations-sticky ul li a:hover {
+  border: none;
+  animation: none;
+  color: #030406;
+}
+.navigations .navigations-sticky ul li a:hover::after {
+  background-color: #030406;
+}
+.navigations .navigations-sticky .slide {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  border-radius: 0px;
+  transform: translateX(0);
+}
+.navigations .navigations-sticky .logo {
+  display: none;
+}
+.navigations .navigations-sticky .menu-toggle {
+  z-index: 12;
+  display: flex;
+  position: fixed;
+  right: 5%;
+  top: 5%;
+  background-color: rgba(0, 0, 0, 0.411);
+  filter: invert(1);
+}
+.navigations .navigations-sticky .contact-cta {
+  display: none;
+}
+.navigations .contact-cta {
+  border: 3px solid #fa7268;
+  border-radius: 5px;
+}
+.navigations .contact-cta a {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  text-decoration: none;
+  color: #fa7268;
+  padding: 1rem;
+}
+.navigations .contact-cta a:hover {
+  color: white;
+  border-radius: 5px;
+  text-shadow: 0px 3px 2px rgba(169, 169, 169, 0.6);
+}
+.navigations .contact-cta a::after {
+  content: "";
+  position: absolute;
+  text-align: center;
+  bottom: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50px;
+  background-color: white;
+  transition: 0.4s;
+  transform: translate(0, 10px) scale(0);
+  transition: ease-in-out 200ms;
+}
+.navigations .contact-cta a:hover::after {
+  transform: translate(0, 0) scale(1);
+}
+
+.hero main {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+.hero main .parallax {
+  pointer-events: none;
+  transition: ease-out 850ms;
+}
+.hero main .bg-img {
+  z-index: 1;
+  position: absolute;
+  width: 110%;
+  top: 15%;
+  left: 45%;
+  filter: opacity(20);
+}
+.hero main .astro {
+  z-index: 12;
+  position: absolute;
+  width: 50.67%;
+  top: 100%;
+  left: 49%;
+  mix-blend-mode: color-dodge;
+}
+.hero main .moon {
+  z-index: 3;
+  position: absolute;
+  width: 40%;
+  top: 35%;
+  left: 50%;
+}
+.hero main .earth {
+  z-index: 4;
+  position: absolute;
+  width: 10.833%;
+  top: 50%;
+  left: 12%;
+  filter: blur(2px);
+}
+.hero main .mask {
+  z-index: 9;
+  position: absolute;
+  width: 100%;
+  top: 25%;
+  left: 0%;
+}
+.hero main .text {
+  z-index: 99;
+  pointer-events: auto;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  color: white;
+}
+.hero main .text .hero-cta {
+  width: 60%;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 2rem auto;
+  gap: 2em;
+}
+.hero main .text .hero-cta a {
+  position: relative;
+  text-align: center;
+  border: 3px solid #fa7268;
+  border-radius: 5px;
+  padding: 1rem 0;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  color: #fa7268;
+}
+.hero main .text .hero-cta a:hover {
+  color: white;
+  border-radius: 5px;
+  background-color: #fa7268;
+  text-shadow: 0px 3px 2px rgba(169, 169, 169, 0.6);
+}
+.hero main .text .hero-cta a:hover::after {
+  transform: translate(0, 0) scale(1);
+}
+.hero main .text h4 {
+  font-family: "Roboto";
+  white-space: nowrap;
+  font-size: 1.875rem;
+  color: white;
+  font-weight: 400;
+  text-align: center;
+  transition: all ease-in-out 300ms;
+}
+.hero main .text h1 {
+  text-align: center;
+  font-family: "Roboto Condensed";
+  font-weight: 700;
+  white-space: nowrap;
+  font-size: 5rem;
+}
+.hero main .text h1 span {
+  background: linear-gradient(0deg, rgb(250, 114, 104) 52%, rgb(124, 120, 255) 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.aboutMe {
+  margin-top: 8rem;
+  position: relative;
+}
+.aboutMe .container-about {
+  padding: 0rem 5rem;
+  width: 80%;
+}
+.aboutMe .container-about h1 {
+  font-family: "Roboto Condensed";
+  font-size: 8em;
+  color: rgba(48, 24, 109, 0.3294117647);
+  position: absolute;
+  top: calc(50% - 100px);
+  font-weight: 700;
+  left: 26%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.aboutMe .container-about h3 {
+  padding-bottom: 10px;
+  font-family: "Roboto Condensed";
+  font-size: 3.5em;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+}
+.aboutMe .container-about p {
+  font-family: "Roboto";
+  line-height: 1.6em;
+  width: 60%;
+  color: #e8efd7;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.mySkill {
+  margin: 8rem 0;
+  position: relative;
+}
+.mySkill .container-skill {
+  padding: 0rem 5rem;
+  width: 80%;
+}
+.mySkill .container-skill h1 {
+  font-family: "Roboto Condensed";
+  font-size: 8em;
+  color: rgba(48, 24, 109, 0.3294117647);
+  position: absolute;
+  top: calc(50% - 100px);
+  font-weight: 700;
+  left: 23.2%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.mySkill .container-skill h3 {
+  padding-bottom: 10px;
+  font-family: "Roboto Condensed";
+  font-size: 3.5em;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+}
+.mySkill .container-skill p {
+  font-family: "Roboto";
+  line-height: 1.6em;
+  width: 60%;
+  color: #e8efd7;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+.mySkill .container-skill div {
+  margin: 1em 0;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mySkill .container-skill div svg {
+  padding: 0 10px;
+  filter: grayscale(100%);
+  transition: ease-in-out 200ms;
+}
+.mySkill .container-skill div svg:hover {
+  filter: none;
+}
+
+.myProject {
+  margin-top: 8rem;
+  position: relative;
+}
+.myProject .container-project {
+  height: 50vh;
+  position: relative;
+}
+.myProject .container-project h1 {
+  font-family: "Roboto Condensed";
+  font-size: 8em;
+  color: rgba(48, 24, 109, 0.3294117647);
+  position: absolute;
+  font-weight: 700;
+  top: -4.8%;
+  left: 30.2%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.myProject .container-project h3 {
+  top: 8%;
+  position: absolute;
+  padding-bottom: 10px;
+  font-family: "Roboto Condensed";
+  font-size: 3.5em;
+  color: white;
+  font-weight: 700;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 576px) {
+  body {
+    overflow-x: hidden;
+  }
+  .navigations nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+  .navigations nav .logo {
+    background-color: white;
+  }
+  .navigations nav ul {
+    display: none;
+    position: absolute;
+    right: 0;
+    flex-direction: column;
+    background-color: rgba(5, 11, 5, 0.4117647059);
+    -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px);
+    top: 25%;
+    width: 100%;
+    height: 50vh;
+    transform: translateX(100%);
+    transition: cubic-bezier(0.17, 0.87, 0.53, 0.87) 600ms;
+    border-radius: 1800px 0 0 700px;
+  }
+  .navigations nav ul li a {
+    font-size: 2.201em;
+  }
+  .navigations nav ul li a:hover {
+    animation: none;
+    color: #030406;
+  }
+  .navigations nav ul li a:hover::after {
+    background-color: #030406;
+  }
+  .navigations nav ul li a::after {
+    width: 5px;
+    height: 5px;
+  }
+  .navigations nav .ul-active {
+    transition: 1s ease-in-out;
+    display: flex;
+  }
+  .navigations nav .slide {
+    top: 0;
+    height: 100vh;
+    border-radius: 0px;
+    transform: translateX(0);
+  }
+  .navigations nav .contact-cta {
+    bottom: 15px;
+    right: 15px;
+    position: fixed;
+  }
+  .navigations nav .menu-toggle {
+    position: relative;
+    display: flex;
+  }
+  .navigations nav .menu-toggle input:checked ~ span:nth-child(2) {
+    background-color: #ffffff;
+  }
+  .navigations nav .menu-toggle input:checked ~ span:nth-child(3) {
+    background-color: #ffffff;
+  }
+  .navigations nav .active-bg {
+    border: 2px solid #030406;
+    background-color: #030406;
+  }
+  .navigations nav .active-contact {
+    transition: all ease-in-out 300ms;
+    animation: pulse 1s infinite;
+    border: 1px solid white;
+    background-color: #232752;
+  }
+  .navigations nav .active-contact a {
+    color: white;
+  }
+  .navigations .navigations-sticky ul {
+    width: 100%;
+  }
+  .hero .content {
+    overflow: hidden;
+  }
+  .hero .content .bg-img {
+    width: initial;
+    height: 176%;
+  }
+  .hero .content .astro {
+    width: initial;
+    height: 81.072%;
+  }
+  .hero .content .moon {
+    width: initial;
+    height: 64%;
+  }
+  .hero .content .earth {
+    width: initial;
+    height: 17.833%;
+  }
+  .hero .content .mask {
+    width: initial;
+    height: 35%;
+    top: 65%;
+  }
+  .hero .content .text .hero-cta {
+    display: none;
+  }
+  .hero .content .text h1 {
+    font-size: 3rem;
+  }
+  .aboutMe .container-about {
+    padding: 0rem 1.5rem;
+  }
+  .aboutMe .container-about p {
+    width: 100%;
+  }
+  .mySkill {
+    margin-top: 8rem;
+    position: relative;
+  }
+  .mySkill .container-skill {
+    padding: 0rem 1.5rem;
+  }
+  .mySkill .container-skill p {
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .hand {
+    display: none;
+  }
+}
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+@keyframes pulseColor {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 #8beeee;
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+@keyframes bouncing {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(0, -8px) scale(1.1);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}/*# sourceMappingURL=main.css.map */
